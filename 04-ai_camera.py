@@ -49,7 +49,8 @@ def main():
     with picamera.PiCamera() as camera:
         with picamera.array.PiRGBArray(camera) as stream:
             # カメラの解像度を320x240にセット
-            camera.resolution = (320, 240)
+            #camera.resolution = (320, 240)
+            camera.resolution = (480, 320)
             # カメラのフレームレートを15fpsにセット
             camera.framerate = 15
             # ホワイトバランスをfluorescent(蛍光灯)モードにセット
