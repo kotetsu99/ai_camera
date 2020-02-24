@@ -59,7 +59,7 @@ def main():
     else:
         print('モデル新規作成')
         cnn_model = cnn_model_maker()
-        # 多クラス分類を指定
+        # 2クラス分類を指定
         cnn_model.compile(loss='binary_crossentropy',
                   optimizer='adam',
                   metrics=['accuracy'])

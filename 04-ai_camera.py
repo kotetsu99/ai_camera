@@ -11,7 +11,7 @@ import time
 
 # プログラム実行制限時間(分)
 time_limit = 30
-# 注文者本人の名前
+# 本人の名前
 person = 'person'
 
 # OpenCV物体検出サイズ定義
@@ -48,16 +48,12 @@ def main():
 
     with picamera.PiCamera() as camera:
         with picamera.array.PiRGBArray(camera) as stream:
-            # カメラの解像度を320x240にセット
-            #camera.resolution = (320, 240)
-            camera.resolution = (480, 320)
+            # カメラの解像度を320x320にセット
+            camera.resolution = (320, 320)
             # カメラのフレームレートを15fpsにセット
             camera.framerate = 15
             # ホワイトバランスをfluorescent(蛍光灯)モードにセット
             camera.awb_mode = 'fluorescent'
-
-            # 本人認識フラグ
-            person_flg = False
 
             # 時間計測開始
             start_time = time.time()
@@ -65,6 +61,8 @@ def main():
 
             # 制限時間まで顔認識実行
             while process_time < time_limit :
+                # 本人認識フラグ
+                person_flg = False
                 # stream.arrayにBGRの順で映像データを格納
                 camera.capture(stream, 'bgr', use_video_port=True)
 
@@ -72,6 +70,12 @@ def main():
                 image, person_flg = detect_face(stream.array, model, person_flg)
                 # カメラ映像をウインドウに表示
                 cv2.imshow('frame', image)
+
+                # 本人が顔検出された場合に何か処理を実施
+                if person_flg == True :
+                    # 何か処理を実施（ここから）
+                    print('本人です')
+                    # 何か処理を実施（ここまで）
 
                 # 'q'を入力でアプリケーション終了
                 key = cv2.waitKey(1)
