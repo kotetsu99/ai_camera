@@ -71,16 +71,16 @@ def main():
                 # カメラ映像をウインドウに表示
                 cv2.imshow('frame', image)
 
+                # 'q'を入力でアプリケーション終了
+                key = cv2.waitKey(1)
+                if key & 0xFF == ord('q'):
+                    break
+
                 # 本人が顔検出された場合に何か処理を実施
                 if person_flg == True :
                     # 何か処理を実施（ここから）
                     print('本人です')
                     # 何か処理を実施（ここまで）
-
-                # 'q'を入力でアプリケーション終了
-                key = cv2.waitKey(1)
-                if key & 0xFF == ord('q'):
-                    break
 
                 # streamをリセット
                 stream.seek(0)
