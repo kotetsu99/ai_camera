@@ -132,11 +132,11 @@ def detect_face(image, model, person_flg):
 def predict_who(x, model):
     # 画像データをテンソル整形
     x = np.expand_dims(x, axis=0)
-    # 学習時に正規化してるので、ここでも正規化
+    # データ正規化
     x = x / 255
     pred = model.predict(x)[0]
 
-    # 予測確率が高いトップn個を出力
+    # 確率が高い上位1個を出力
     top = 1
     top_indices = pred.argsort()[-top:][::-1]
     result = [(classes[i], 1-pred[i]) for i in top_indices]
